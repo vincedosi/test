@@ -133,10 +133,14 @@ if __name__ == '__main__':
 
 ###
 
+import shap
+import streamlit as st
 import streamlit.components.v1 as components
+import xgboost
 
 @st.cache
-
+def load_data():
+    return shap.datasets.boston()
 
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
@@ -145,17 +149,16 @@ def st_shap(plot, height=None):
 st.title("SHAP in Streamlit")
 
 # train XGBoost model
-x_train, y_train= load_data()
-model = xgboost.train({"learning_rate": 0.01}, xgboost.DMatrix(x_train, label=y_train), 100)
+X,y = load_data()
+model = xgboost.train({"learning_rate": 0.01}, xgboost.DMatrix(X, label=y), 100)
 
 # explain the model's predictions using SHAP
 # (same syntax works for LightGBM, CatBoost, scikit-learn and spark models)
 explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(x_train)
+shap_values = explainer.shap_values(X)
 
 # visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
-st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], x_train.iloc[0,:]))
+st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:]))
 
 # visualize the training set predictions
-st_shap(shap.force_plot(explainer.expected_value, shap_values, x_train), 400)
-
+st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
