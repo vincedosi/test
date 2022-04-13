@@ -1,6 +1,6 @@
 # PACKAGES
 
-!pip install shap
+pip install shap
 
 import shap
 
