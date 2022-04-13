@@ -133,13 +133,7 @@ def main():
 
 
 
-
-def st_plot_text_shap(shap_val, height=None)
-    InteractiveShell().instance()
-    with capture.capture_output() as cap: 
-        shap.plots.text(shap_val)
-    components.html(cap.outputs[1].data['text/html'], height=height scrolling=True)        
-        
+    
         
 
         
@@ -150,3 +144,32 @@ if __name__ == '__main__':
 
 
 ###
+import shap
+shap.initjs() # for visualization
+X, y = shap.datasets.boston()
+
+clf = RandomForestRegressor(n_estimators=500, n_jobs=-1)
+clf.fit(X, y)
+
+explainer = shap.TreeExplainer(clf, X)
+shap_values = explainer.shap_values(X)
+st.set_option('deprecation.showPyplotGlobalUse', False)
+
+#force_plot
+i = 0
+shap.force_plot(explainer.expected_value, shap_values[i,:], X.iloc[i,:])
+st.pyplot()
+
+#summary_plot_bar
+shap.summary_plot(shap_values, X, plot_type="bar")
+st.pyplot()
+
+#summary_plot
+shap.summary_plot(shap_values, X)
+st.pyplot()
+
+#dependance_plot
+shap.dependence_plot("LSTAT", shap_values, X)
+st.pyplot()
+
+###########################
