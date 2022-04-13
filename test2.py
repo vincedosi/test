@@ -1,5 +1,7 @@
 # PACKAGES
 
+import shap
+
 import pandas as pd
 import numpy as np
 import streamlit as st
@@ -142,34 +144,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-
-###
-import shap
-shap.initjs() # for visualization
-X, y = shap.datasets.boston()
-
-clf = RandomForestRegressor(n_estimators=500, n_jobs=-1)
-clf.fit(X, y)
-
-explainer = shap.TreeExplainer(clf, X)
-shap_values = explainer.shap_values(X)
-st.set_option('deprecation.showPyplotGlobalUse', False)
-
-#force_plot
-i = 0
-shap.force_plot(explainer.expected_value, shap_values[i,:], X.iloc[i,:])
-st.pyplot()
-
-#summary_plot_bar
-shap.summary_plot(shap_values, X, plot_type="bar")
-st.pyplot()
-
-#summary_plot
-shap.summary_plot(shap_values, X)
-st.pyplot()
-
-#dependance_plot
-shap.dependence_plot("LSTAT", shap_values, X)
-st.pyplot()
-
-###########################
