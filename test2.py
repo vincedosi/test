@@ -1,6 +1,10 @@
 # PACKAGES
 
-pip install shap
+!pip install shap
+
+import shap
+
+from IPython.display import display
 
 import shap
 
