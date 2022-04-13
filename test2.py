@@ -132,17 +132,12 @@ if __name__ == '__main__':
 
 
 ###
-import shap
+import streamlit.components.v1 as components
+from IPython.core.interactiveshell import InteractiveShell
+from IPython.utils import capture
 
-# train XGBoost model
-X,y = shap.datasets.boston()
-model = xgboost.train({"learning_rate": 0.01}, xgboost.DMatrix(X, label=y), 100)
-
-# explain the model's predictions using SHAP values
-# (same syntax works for LightGBM, CatBoost, scikit-learn and spark models)
-explainer = shap.TreeExplainer(model)
-
-shap_values = explainer.shap_values(X)
-
-# visualize the first prediction's explanation (use matplotlib=True to avoid Javascript)
-st.write(shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:], matplotlib=True), unsafe_allow_html=True)
+def st_plot_text_shap(shap_val, height=None)
+    InteractiveShell().instance()
+    with capture.capture_output() as cap: 
+        shap.plots.text(shap_val)
+    components.html(cap.outputs[1].data['text/html'], height=height scrolling=True)
