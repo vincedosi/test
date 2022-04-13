@@ -41,11 +41,7 @@ def main():
     @st.cache(persist=True)
     def load_data():
         data = pd.read_csv('bank-additional-full.csv', sep = ';')
-        label = LabelEncoder()
-        for col in data.columns:
-            data[col] = label.fit_transform(data[col])
-        return data
-
+     
     @st.cache(persist=True)
     def split(df):
         y = df.y
