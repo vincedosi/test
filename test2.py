@@ -132,9 +132,6 @@ if __name__ == '__main__':
 
 
 ###
-
-
-import xgboost
 import shap
 
 # train XGBoost model
