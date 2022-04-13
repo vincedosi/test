@@ -24,8 +24,9 @@ from sklearn.tree import plot_tree
 from sklearn import tree
 
 from IPython.display import display
-# import matplotlib.pyplot as plt
-# import matplotlib as plt
+
+import matplotlib as plt
+import matplotlib.pyplot as plt
 
 import pickle
 
