@@ -1,5 +1,7 @@
 # PACKAGES
 
+pip install shap
+
 import shap
 
 import pandas as pd
