@@ -132,7 +132,7 @@ if __name__ == '__main__':
 
 
 ###
-import japanize_matplotlib
+
 
 #Use Random Forest
 from sklearn.ensemble import RandomForestRegressor
